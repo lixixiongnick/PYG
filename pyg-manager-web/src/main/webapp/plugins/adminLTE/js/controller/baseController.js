@@ -15,14 +15,26 @@ app.controller('baseController', function ($scope) {
             $scope.reloadList();//重新加载
         }
     };
-    $scope.delList = [];
+    $scope.selectIds = [];
     $scope.selected = function ($event, id) {
         if ($event.target.checked) {
-            $scope.delList.push(id)
+            $scope.selectIds.push(id)
         } else {
-            var idx = $scope.delList.indexOf(id);
-            $scope.delList.splice(idx, 1);//删除
+            var idx = $scope.selectIds.indexOf(id);
+            $scope.selectIds.splice(idx, 1);//删除
 
         }
     };
+    $scope.jsonTOstr=function (JsonStr, key) {
+        //将json格式的字符串,转换为json数据
+        var typeJson = JSON.parse(JsonStr);
+        var value="";
+        for (i=0;i<typeJson.length;i++){
+            if(i>0){
+                value +=",";
+            }
+            value += typeJson[i][key];
+        }
+        return value;
+    }
 });

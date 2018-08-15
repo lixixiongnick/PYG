@@ -14,6 +14,7 @@ import com.pyg.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class specificationServiceImp implements specificationService {
@@ -111,5 +112,10 @@ public class specificationServiceImp implements specificationService {
                 criteria.andIdEqualTo(id);
                 specificationOptionMapper.deleteByExample(example);
        }
+    }
+
+    @Override
+    public List<Map> findspecIdsList() {
+        return specificationMapper.findspecIdsList();
     }
 }

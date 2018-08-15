@@ -16,4 +16,7 @@
   <delete id="del" parameterType="Long">
    	delete from tb_brand where id=#{id}
   </delete>
+<select id="findbrandList" resultType="map">
+  select id,name text from tb_brand
+</select>
 </mapper>

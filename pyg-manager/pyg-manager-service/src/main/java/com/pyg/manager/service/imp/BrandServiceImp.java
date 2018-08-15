@@ -10,6 +10,8 @@ import com.pyg.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class BrandServiceImp implements BrandService {
     @Autowired
@@ -48,5 +50,10 @@ public class BrandServiceImp implements BrandService {
        for (Long id:ids){
            brandMapper.del(id);
        }
+    }
+
+    @Override
+    public List<Map> findbrandList() {
+        return brandMapper.findbrandList();
     }
 }

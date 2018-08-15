@@ -23,4 +23,7 @@ app.service('brandService',function ($http) {
     this.del=function (ids) {
         return	$http.get('../brand/del/'+ids);
     }
+    this.findbrandList=function () {
+        return $http.get('../brand/findbrandList');
+    }
 });

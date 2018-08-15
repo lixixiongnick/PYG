@@ -23,4 +23,7 @@ app.service('specificationService',function ($http) {
     this.del=function (ids) {
         return	$http.get('../specification/del/'+ids);
     };
+    this.specIdsList=function () {
+        return $http.get('../specification/specification')
+    }
 });

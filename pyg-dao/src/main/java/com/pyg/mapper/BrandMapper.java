@@ -3,6 +3,7 @@ package com.pyg.mapper;
 import com.pyg.pojo.TbBrand;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BrandMapper {
     //查询全部
@@ -15,4 +16,6 @@ public interface BrandMapper {
     void updata(TbBrand tbBrand);
     //根据id删除
     void del(Long id);
+    //查询品牌
+    List<Map> findbrandList();
 }
