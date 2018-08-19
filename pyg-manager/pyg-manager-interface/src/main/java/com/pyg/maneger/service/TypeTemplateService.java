@@ -1,5 +1,7 @@
 package com.pyg.maneger.service;
 import java.util.List;
+import java.util.Map;
+
 import com.pyg.pojo.TbTypeTemplate;
 
 import com.pyg.utils.PageResult;
@@ -57,5 +59,7 @@ public interface TypeTemplateService {
 	 * @return
 	 */
 	public PageResult findPage(TbTypeTemplate typeTemplate, int pageNum, int pageSize);
+	 //查询规格列表
+	List<Map> findSpecList(Long id);
 	
 }

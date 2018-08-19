@@ -59,7 +59,8 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 		itemCatService.dele( $scope.selectIds ).success(
 			function(response){
 				if(response.success){
-					$scope.reloadList();//刷新列表
+                    //重新查询
+                    $scope.findparentId($scope.parentId);//重新加载
 					$scope.selectIds=[];
 				}						
 			}		
@@ -78,6 +79,7 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 		);
 	};
 	$scope.parentId=0;
+	//根据父id查询子节点
 	$scope.findparentId=function (parentId) {
 	    $scope.parentId=parentId;
 		itemCatService.findparentId(parentId).success(function (data) {

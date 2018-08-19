@@ -28,5 +28,9 @@ app.service('sellerService',function($http){
 	//搜索
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../seller/search/'+page+"/"+rows, searchEntity);
-	}    	
+	}
+    //更新状态
+    this.updateStatus=function (id, status) {
+        return $http.get('../seller/updateStatus/'+id+'/'+status);
+    }
 });
