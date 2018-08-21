@@ -12,15 +12,15 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 		);
 	}    
 	
-	//分页
-	$scope.findPage=function(page,rows){			
-		goodsService.findPage(page,rows).success(
-			function(response){
-				$scope.list=response.rows;	
-				$scope.paginationConf.totalItems=response.total;//更新总记录数
-			}			
-		);
-	}
+	// //分页
+	// $scope.findPage=function(page,rows){
+	// 	goodsService.findPage(page,rows).success(
+	// 		function(response){
+	// 			$scope.list=response.rows;
+	// 			$scope.paginationConf.totalItems=response.total;//更新总记录数
+	// 		}
+	// 	);
+	// };
 	
 	//查询实体 
 	$scope.findOne=function(id){				
@@ -47,7 +47,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 				}
 			}		
 		);				
-	}
+	};
 
 	 
 	//批量删除 
@@ -66,8 +66,10 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 	$scope.searchEntity={};//定义搜索对象 
 	
 	//搜索
+
 	//初始化
     $scope.searchEntity={};
+
 	$scope.search=function(page,rows){			
 		goodsService.search(page,rows,$scope.searchEntity).success(
 			function(response){
@@ -163,6 +165,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
             }
 		}
 		return newList;
+
     };
     $scope.status=['未审核','已审核','审核未通过','关闭'];
 	//初始化catList
@@ -185,4 +188,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
         })
     }
     $scope.Marketable=['下架','上架'];
-});	
+
+
+
+});
