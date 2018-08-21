@@ -30,6 +30,7 @@ public class ItemCatServiceImpl implements ItemCatService {
 	 */
 	@Override
 	public List<TbItemCat> findAll() {
+
 		return itemCatMapper.selectByExample(null);
 	}
 

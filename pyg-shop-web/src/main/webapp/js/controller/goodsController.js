@@ -66,6 +66,8 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 	$scope.searchEntity={};//定义搜索对象 
 	
 	//搜索
+	//初始化
+    $scope.searchEntity={};
 	$scope.search=function(page,rows){			
 		goodsService.search(page,rows,$scope.searchEntity).success(
 			function(response){
@@ -161,5 +163,26 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
             }
 		}
 		return newList;
+    };
+    $scope.status=['未审核','已审核','审核未通过','关闭'];
+	//初始化catList
+	$scope.catList=[];
+	$scope.findAllItemcat=function () {
+		itemCatService.findAll().success(function (data) {
+			for (var i=0;i<data.length;i++){
+				$scope.catList[data[i].id]=data[i].name;
+			}
+        })
     }
+    //上下架
+	$scope.updateMarketable=function (status) {
+		goodsService.updateMarketable($scope.selectIds,status).success(function (data) {
+			if (data.success){
+				$scope.reloadList();
+			}else {
+				alert(data.message)
+			}
+        })
+    }
+    $scope.Marketable=['下架','上架'];
 });	

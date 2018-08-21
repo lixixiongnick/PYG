@@ -195,7 +195,7 @@
                             	<div class="row data-type">
 	                            	<div class="col-md-2 title">是否启用规格</div>
 			                        <div class="col-md-10 data">
-			                        	<input type="checkbox" >
+			                        	<input type="checkbox" ng-model="entity.tbGoods.isEnableSpec" ng-true-value="1" ng-false-value="0" >
 			                            <button type="button" class="btn btn-default" title="自定义规格" data-target="#mySpecModal"  data-toggle="modal"  ><i class="fa fa-file-o"></i> 自定义规格</button>               
 			                        </div>
                             	</div>
@@ -216,8 +216,8 @@
 		                                </div>
 	                                </div>
 												<!--{{entity.tbGoodsDesc.specificationItems}}-->
-	                                			{{entity.tbItemList}}
-	                                <div class="row data-type">
+	                                			<!--{{entity.tbItemList}}-->
+	                                <div class="row data-type" ng-if="entity.tbGoods.isEnableSpec==1">
 	                                	 <table class="table table-bordered table-striped table-hover dataTable">
 						                    <thead>
 						                        <tr>					                          
@@ -241,10 +241,10 @@
 										            	<input ng-model="pojo.num" class="form-control" placeholder="库存数量">
 										            </td>
 										            <td>
-										             	<input type="checkbox"  >
+										             	<input type="checkbox" ng-true-value="1" ng-false-value="0" >
 										            </td>
 										            <td>
-										                <input type="checkbox"  >
+										                <input type="checkbox" ng-true-value="1" ng-false-value="0" >
 										            </td>
 						                      </tr>
 						                    </tbody>

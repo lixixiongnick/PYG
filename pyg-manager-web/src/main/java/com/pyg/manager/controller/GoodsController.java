@@ -1,11 +1,12 @@
-package com.pyg.shop.controller;
+package com.pyg.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.pyg.maneger.service.ItemCatService;
-import com.pyg.pojo.TbItemCat;
+import com.pyg.maneger.service.GoodsService;
+import com.pyg.pojo.TbGoods;
+import com.pyg.pojo.TbGoodsDesc;
 import com.pyg.utils.PageResult;
 import com.pyg.utils.pygResult;
-
+import com.pyg.vo.Goods;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,20 +20,19 @@ import java.util.List;
  *
  */
 @RestController
-@RequestMapping("/itemCat")
-public class ItemCatController {
+@RequestMapping("/goods")
+public class GoodsController {
 
 	@Reference
-	private ItemCatService itemCatService;
+	private GoodsService goodsService;
 	
 	/**
 	 * 返回全部列表
 	 * @return
 	 */
 	@RequestMapping("/findAll")
-	public List<TbItemCat> findAll(){			
-
-		return itemCatService.findAll();
+	public List<TbGoodsDesc> findAll(){			
+		return goodsService.findAll();
 	}
 	
 	
@@ -42,18 +42,18 @@ public class ItemCatController {
 	 */
 	@RequestMapping("/findPage/{page}/{rows}")
 	public PageResult  findPage(@PathVariable int page,@PathVariable int rows){			
-		return itemCatService.findPage(page, rows);
+		return goodsService.findPage(page, rows);
 	}
 	
 	/**
 	 * 增加
-	 * @param itemCat
+	 * @param goods
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public pygResult add(@RequestBody TbItemCat itemCat){
+	public pygResult add(@RequestBody Goods goods){
 		try {
-			itemCatService.add(itemCat);
+			goodsService.add(goods);
 			return new pygResult(true, "增加成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,13 +63,13 @@ public class ItemCatController {
 	
 	/**
 	 * 修改
-	 * @param itemCat
+	 * @param goodsDesc
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public pygResult update(@RequestBody TbItemCat itemCat){
+	public pygResult update(@RequestBody TbGoodsDesc goodsDesc){
 		try {
-			itemCatService.update(itemCat);
+			goodsService.update(goodsDesc);
 			return new pygResult(true, "修改成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,8 +83,8 @@ public class ItemCatController {
 	 * @return
 	 */
 	@RequestMapping("/findOne/{id}")
-	public TbItemCat findOne(@PathVariable Long id){
-		return itemCatService.findOne(id);		
+	public TbGoodsDesc findOne(@PathVariable Long id){
+		return goodsService.findOne(id);		
 	}
 	
 	/**
@@ -95,7 +95,7 @@ public class ItemCatController {
 	@RequestMapping("/delete/{ids}")
 	public pygResult delete(@PathVariable Long [] ids){
 		try {
-			itemCatService.delete(ids);
+			goodsService.delete(ids);
 			return new pygResult(true, "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -111,12 +111,18 @@ public class ItemCatController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbItemCat itemCat, int page, int rows  ){
-		return itemCatService.findPage(itemCat, page, rows);		
+	public PageResult search(@RequestBody TbGoods goodsDesc, int page, int rows  ){
+		return goodsService.findPage(goodsDesc, page, rows);
 	}
-	@RequestMapping("findparentId/{parentId}")
-	public List<TbItemCat> findparentId(@PathVariable Long parentId){
-        List<TbItemCat> itemCatList = itemCatService.findparentId(parentId);
-        return itemCatList;
-    }
+	@RequestMapping("/updateStatus/{ids}/{status}")
+	public pygResult updateStatus(@PathVariable Long[] ids,@PathVariable String status){
+		try {
+			goodsService.updateStatus(ids,status);
+			return new pygResult(true,"修改成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new pygResult(false,"修改失败");
+		}
+	}
+	
 }

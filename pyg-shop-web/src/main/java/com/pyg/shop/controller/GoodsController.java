@@ -2,10 +2,12 @@ package com.pyg.shop.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pyg.maneger.service.GoodsService;
+import com.pyg.pojo.TbGoods;
 import com.pyg.pojo.TbGoodsDesc;
 import com.pyg.utils.PageResult;
 import com.pyg.utils.pygResult;
 import com.pyg.vo.Goods;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +25,7 @@ import java.util.List;
 public class GoodsController {
 
 	
-	@Reference
+	@Reference(timeout = 100000)
 	private GoodsService goodsService;
 	
 	/**
@@ -41,7 +43,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findPage/{page}/{rows}")
-	public PageResult  findPage(@PathVariable int page,@PathVariable int rows){			
+	public PageResult  findPage(@PathVariable int page,@PathVariable int rows){
 		return goodsService.findPage(page, rows);
 	}
 	
@@ -53,6 +55,8 @@ public class GoodsController {
 	@RequestMapping("/add")
 	public pygResult add(@RequestBody Goods goods){
 		try {
+			String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+			goods.getTbGoods().setSellerId(sellerId);
 			goodsService.add(goods);
 			return new pygResult(true, "增加成功");
 		} catch (Exception e) {
@@ -110,9 +114,22 @@ public class GoodsController {
 	 * @param rows
 	 * @return
 	 */
-	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbGoodsDesc goodsDesc, int page, int rows  ){
-		return goodsService.findPage(goodsDesc, page, rows);		
+	@RequestMapping("/search/{page}/{rows}")
+	public PageResult search(@RequestBody TbGoods goods, @PathVariable int page,@PathVariable int rows  ){
+		String sellerId  = SecurityContextHolder.getContext().getAuthentication().getName();
+		goods.setSellerId(sellerId);
+		return goodsService.findPage(goods, page, rows);
+	}
+	//上下架
+	@RequestMapping("/updateMarketable/{ids}/{status}")
+	public pygResult updateMarketable(@PathVariable Long[] ids,@PathVariable String status){
+		try {
+			goodsService.updateMarketable(ids,status);
+			return new pygResult(true,"更新成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new pygResult(false,"更新失败");
+		}
 	}
 	
 }

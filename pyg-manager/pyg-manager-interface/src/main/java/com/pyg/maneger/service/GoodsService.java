@@ -1,5 +1,6 @@
 package com.pyg.maneger.service;
 
+import com.pyg.pojo.TbGoods;
 import com.pyg.pojo.TbGoodsDesc;
 import com.pyg.utils.PageResult;
 import com.pyg.vo.Goods;
@@ -59,6 +60,11 @@ public interface GoodsService {
 	 * @param pageSize 每页记录数
 	 * @return
 	 */
-	public PageResult findPage(TbGoodsDesc goodsDesc, int pageNum, int pageSize);
-	
+	public PageResult findPage(TbGoods goods, int pageNum, int pageSize);
+
+	//修改状态
+	void updateStatus(Long[] ids,String Status);
+
+	//上下架
+	void updateMarketable(Long[] ids,String status);
 }
