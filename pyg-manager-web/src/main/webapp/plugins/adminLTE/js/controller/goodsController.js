@@ -11,7 +11,6 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 			}			
 		);
 	};
-	
 	//分页
 	$scope.findPage=function(page,rows){			
 		goodsService.findPage(page,rows).success(

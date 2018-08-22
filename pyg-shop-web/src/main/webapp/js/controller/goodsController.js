@@ -12,7 +12,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 		);
 	}    
 	
-	// //分页
+	//分页
 	// $scope.findPage=function(page,rows){
 	// 	goodsService.findPage(page,rows).success(
 	// 		function(response){
@@ -61,14 +61,11 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 				}						
 			}		
 		);				
-	}
+	};
 	
-	$scope.searchEntity={};//定义搜索对象 
-	
+	$scope.searchEntity={};//定义搜索对象
 	//搜索
-
 	//初始化
-    $scope.searchEntity={};
 
 	$scope.search=function(page,rows){			
 		goodsService.search(page,rows,$scope.searchEntity).success(
@@ -142,7 +139,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 		}else {
 			$scope.entity.tbGoodsDesc.specificationItems.push({"attributeName":name,"attributeValue":[value]})
 		}
-    }
+    };
     //创建sku列表
 	$scope.createItemList=function () {
 		$scope.entity.tbItemList=[{spec:{},price:0,num:99999,status:1,isDefault:1}];//初始化sku行
@@ -152,7 +149,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 				//抽取方法生成行
 				$scope.entity.tbItemList=addColumn($scope.entity.tbItemList,item[i].attributeName,item[i].attributeValue);
 			}
-    }
+    };
     addColumn=function (itemList, Columnname, Columnvalue) {
 		var newList=[];
 		for(var i=0;i<itemList.length;i++){
@@ -186,7 +183,7 @@ app.controller('goodsController' ,function($scope,$controller,goodsService,itemC
 				alert(data.message)
 			}
         })
-    }
+    };
     $scope.Marketable=['下架','上架'];
 
 
